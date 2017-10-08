@@ -1,0 +1,20 @@
+{
+  "name": "pos-print-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "print.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dateformat": "^3.0.2",
+    "escpos": "^2.4.4",
+    "express": "^4.16.1",
+    "promisify-node": "^0.4.0",
+    "svg2png": "^4.1.1"
+  }
+}
