@@ -4,12 +4,7 @@ const express = require(`express`);
 
 const meta = {
   isReady: false,
-  setupFailed: null,
-  fns: {
-    printOrder: () => {},
-    printQrCode: () => {},
-    printWelcome: () => {}
-  }
+  setupFailed: null
 };
 
 const app = express();
@@ -43,21 +38,45 @@ app.get(`/is-available`, (req, res) => {
 });
 
 app.get(`/welcome`, (req, res) => {
-  meta.fns.printWelcome();
-  res.json({ done: meta.isReady && !meta.setupFailed });
+  setupPrinter()
+    .then((fns) => {
+      meta.isReady = true;
+      fns.printWelcome();
+      res.json({ done: true });
+    })
+    .catch((e) => {
+      meta.setupFailed = e;
+      res.json({ done: false });
+    });
 });
 
 app.post(`/order`, (req, res) => {
-  const { order, tableName } = req.body;
-  meta.fns.printOrder(order, tableName);
-  res.json({ done: meta.isReady && !meta.setupFailed });
+  setupPrinter()
+    .then((fns) => {
+      meta.isReady = true;
+      const { order, tableName } = req.body;
+      fns.printOrder(order, tableName);
+      res.json({ done: true });
+    })
+    .catch((e) => {
+      meta.setupFailed = e;
+      res.json({ done: false });
+    });
 });
 
 app.post(`/qr-code`, (req, res) => {
-  meta.fns.printQrCode(req.body);
-  res.json({ done: meta.isReady && !meta.setupFailed });
+  setupPrinter()
+    .then((fns) => {
+      meta.isReady = true;
+      fns.printQrCode(req.body);
+      res.json({ done: true });
+    })
+    .catch((e) => {
+      meta.setupFailed = e;
+      res.json({ done: false });
+    });
 });
 
-console.log(`App listening on port 4242`);
+console.log(`POS print server listening on port 4242`);
 
 app.listen(4242);

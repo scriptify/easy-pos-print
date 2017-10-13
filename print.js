@@ -76,7 +76,7 @@ function printQrCode(printer, { pathToSvg, pathToPng, height = 400, width = 400,
               .encode(`utf8`)
               .size(2, 2)
               .text(`Tisch ${tableName}`)
-              .text(`-----------------------------------------`)
+              .text(charSeries(24, `#`))
               .image(obj)
               .size(1, 1)
               .text(`Code ${tableCode}`)
