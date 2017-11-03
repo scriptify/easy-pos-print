@@ -30,7 +30,7 @@ function printOrder(printer, order, tableName) {
   printer
     .encode(`UTF-8`)
     .size(2, 2)
-    .text(`Tisch ${replaceUnsupportedVals(tableName)}`)
+    .text(`Tisch ${replaceUnsupportedVals(tableName)} (#${order.orderNum})`)
     .text(``)
     .size(1, 1);
 
@@ -45,14 +45,13 @@ function printOrder(printer, order, tableName) {
     .text(charSeries(MAX_CHARS_PER_LINE, `#`))
     .text(``)
     .text(``)
-    .cut(true)
-    .close();
+    .cut(true);
 
   /*try {
     printer.close();
   } catch (e) {
     // How to handle this case? I think it's ok if nothing is done
-    console.error(e);
+    console.error(`Couldn't close!`, e);
   }*/
 }
 

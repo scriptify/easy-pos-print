@@ -54,8 +54,8 @@ app.post(`/order`, (req, res) => {
   setupPrinter()
     .then((fns) => {
       meta.isReady = true;
-      const { order, tableName } = req.body;
-      fns.printOrder(order, tableName);
+      const { order, tableName, number } = req.body;
+      fns.printOrder(order, tableName, number);
       res.json({ done: true });
     })
     .catch((e) => {
