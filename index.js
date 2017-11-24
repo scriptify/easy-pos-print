@@ -30,11 +30,10 @@ app.get(`/is-available`, (req, res) => {
       isAvailable: false,
       reason: `NOT_READY`
     });
-  } else {
-    res.json({
-      isAvailable: true
-    });
   }
+  res.json({
+    isAvailable: true
+  });
 });
 
 app.get(`/welcome`, (req, res) => {

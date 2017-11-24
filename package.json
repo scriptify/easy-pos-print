@@ -4,7 +4,11 @@
   "description": "",
   "main": "print.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "forever start index.js",
+    "stop": "forever stop index.js",
+    "restart": "forever restart index.js",
+    "list": "forever list",
+    "logs": "forever logs index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +20,8 @@
     "express": "^4.16.1",
     "promisify-node": "^0.4.0",
     "svg2png": "^4.1.1"
+  },
+  "devDependencies": {
+    "forever": "^0.15.3"
   }
 }
