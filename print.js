@@ -4,7 +4,8 @@ const fs = require(`fs`);
 const dateFormat = require(`dateformat`);
 const svg2png = require(`svg2png`);
 const escpos = require(`escpos`);
-const http = require(`https`);
+const http = require(`http`);
+const https = require(`https`);
 const Stream = require(`stream`).Transform;
 
 const readFile = promisify(fs.readFile);
@@ -55,9 +56,11 @@ function printOrder(printer, order, tableName) {
   }*/
 }
 
-function printQrCode(printer, { pathToSvg, pathToPng, height = 400, width = 400, tableName, tableCode }) {
+function printQrCode(printer, { pathToSvg, pathToPng, height = 400, width = 400, tableName, tableCode, useHTTPS = false }) {
   const tempSvgPath = path.join(__dirname, `tempSVG.svg`);
-  http.request(pathToSvg, function(response) {
+  const protocolToUse = useHTTPS ? https : http;
+  
+  protocolToUse.request(pathToSvg, function(response) {
     var data = new Stream();
 
     response.on('data', function(chunk) {
