@@ -5,6 +5,7 @@
   "main": "print.js",
   "scripts": {
     "start": "forever start index.js",
+    "start:dev": "nodemon index.js",
     "stop": "forever stop index.js",
     "restart": "forever restart index.js",
     "list": "forever list",
@@ -18,6 +19,7 @@
     "dateformat": "^3.0.2",
     "escpos": "^2.4.4",
     "express": "^4.16.1",
+    "nodemon": "^1.12.1",
     "promisify-node": "^0.4.0",
     "svg2png": "^4.1.1"
   },

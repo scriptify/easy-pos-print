@@ -10,6 +10,12 @@ const meta = {
 const app = express();
 app.use(bodyParser.json());
 
+app.use(function(req, res, next) {
+  res.header(`Access-Control-Allow-Origin`, `*`);
+  res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
+  next();
+});
+
 setupPrinter()
   .then((fns) => {
     meta.isReady = true;
@@ -68,6 +74,19 @@ app.post(`/qr-code`, (req, res) => {
     .then((fns) => {
       meta.isReady = true;
       fns.printQrCode(req.body);
+      res.json({ done: true });
+    })
+    .catch((e) => {
+      meta.setupFailed = e;
+      res.json({ done: false });
+    });
+});
+
+app.post(`/receipt`, (req, res) => {
+  setupPrinter()
+    .then((fns) => {
+      meta.isReady = true;
+      fns.printReceipt(req.body);
       res.json({ done: true });
     })
     .catch((e) => {
